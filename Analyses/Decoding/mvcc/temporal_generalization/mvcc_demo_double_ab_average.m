@@ -1,0 +1,59 @@
+%% MVPAlab TOOLBOX - (mvpa_demo.m)
+% -------------------------------------------------------------------------
+% Brain, Mind and Behavioral Research Center - University of Granada.
+% Contact: cgpenalver@ugr.es and dlopez@ugr.es
+% This one works within condition, considering two sets of data depending
+% on cue pairs (to avoid perceptual confounds)
+% -------------------------------------------------------------------------
+
+clear; clc;
+
+%% Initialize project and run configuration file:
+
+cfg = mvpalab_init();
+
+for an = 1: 2
+    
+    run cfg_file_advanced_double;
+
+    %% Load data, generate conditions and feature extraction:
+
+     [cfg,data,fv] = mvpalab_import(cfg);
+
+    %% Compute MVPA analysis:
+
+    [result,cfg] = mvpalab_mvcc(cfg,fv);
+    [permaps,cfg] = mvpalab_cpermaps(cfg,fv);
+    
+    res.acc(:,:,:,1) = result.acc.ab;
+    res.acc(:,:,:,2) = result.acc.ba;
+    res.auc(:,:,:,1) = result.auc.ab;
+    res.auc(:,:,:,2) = result.auc.ba;
+    per.acc(:,:,:,:,1) = permaps.acc.ab;
+    per.acc(:,:,:,:,2) = permaps.acc.ba;
+    per.auc(:,:,:,:,1) = permaps.auc.ab;
+    per.auc(:,:,:,:,2) = permaps.auc.ba;
+    
+
+
+result.acc = mean(res.acc,4);
+result.auc = mean(res.auc,4);
+
+permaps.acc = mean(per.acc,5);
+permaps.auc = mean(per.auc,5);
+%% Compute permutation maps and run statistical analysis:
+
+
+mvpalab_saveresults(cfg,result);
+mvpalab_savepermaps(cfg,permaps);
+stats = mvpalab_permtest(cfg,result,permaps);
+[resultdiag, permapsdiag, statsdiag] = mvpalab_extractdiag(cfg,result,permaps);%,permaps[,permapsdiag,statsdiag]
+save([cfg.location 'results_raw'], 'cfg', 'result', 'stats', 'permaps', 'permapsdiag', 'statsdiag');
+%% Save cfg file:
+
+mvpalab_savecfg(cfg);
+clear
+
+%% Plot the results:
+end
+

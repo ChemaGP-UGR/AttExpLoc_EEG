@@ -1,0 +1,27 @@
+freq = {'';
+    'Theta';
+    'Alpha';
+    'Beta';
+    'Gamma'};
+for i = 1:5
+    if i == 1
+        clust{i,1} = 'Raw';   
+    else
+        clust{i,1} = freq{i};
+    end
+    
+    for j = 1:3
+        if j == 1
+            load (['D:\AttExpLoc_EEG\Results\EEG\Definitive\Voltage\MVCC\CV\Cue\Averaged\Att_Cues\' freq{i} '\3T\results\temporal_generalization\auc\stats.mat']);
+            clust{i,2} = numel (stats.sigmask)-sum(sum(stats.sigmask));
+        elseif j == 2
+            load (['D:\AttExpLoc_EEG\Results\EEG\Definitive\Voltage\MVCC\CV\Cue\Averaged\Exp_Cues\' freq{i} '\3T\results\temporal_generalization\auc\stats.mat']);
+            clust{i,3} = numel (stats.sigmask)-sum(sum(stats.sigmask));
+        else
+            load (['D:\AttExpLoc_EEG\Results\EEG\Definitive\Voltage\MVCC\CV\Cue\Averaged\Att_Exp_Cues\' freq{i} '\3T\results\temporal_generalization\auc\stats.mat']);
+            clust{i,4} = numel (stats.mean.sigmask)-sum(sum(stats.mean.sigmask));
+        end
+    end
+end
+
+t= table (clust, 'VariableNames', ['

@@ -1,0 +1,108 @@
+%% Initialize and configure plots:
+
+graph = mvpalab_plotinit();
+
+
+%% Mean accuracy plot (no statistical significance)
+
+% Axis limits:
+graph.xlim = [-100 1550];
+graph.ylim = [-10 30];
+
+% Axes labels and titles:
+graph.xlabel = 'Time (ms)';
+graph.ylabel = 'T-Values';
+
+
+% Smooth results:
+graph.smoothdata = 1; % (1 => no smoothing)
+graph.linewidth = 2;
+
+% Plot results:
+% figure;
+% hold on
+% mvpalab_plotcr(graph,cfg,result);
+
+%% Mean accuracy plot (statistical significance)
+
+% Plot significant clusters (above and below chance):
+graph.stats.above = true;
+graph.stats.below = false;
+graph.shadealpha = 0.3;
+
+graph.title = 'Target-Face, Loc-Face, Av(100-300)';
+% Significant indicator:
+
+%graph.colors.saturn{1}
+% Title:
+load D:\AttExpLoc_EEG\Results/EEG/CTP/Loc_Tar/Att/Av_100_300/results.mat
+%graph.title = 'Train Att';
+graph.shadecolor = graph.colors.jupiter{1};
+graph.sigh = 10;
+graph.sigc =graph.shadecolor;
+
+figure;
+hold on
+mvpalab_plotdecoding_ctp(graph,cfg,result.tvalues.tface.lface);%,stats.tvalues.tname.lname
+hold on
+load D:\AttExpLoc_EEG\Results/EEG/CTP/Loc_Tar/Exp/Av_100_300/results.mat
+
+graph.shadecolor = graph.colors.saturn{2};
+graph.sigc =graph.shadecolor;
+graph.sigh = 11;
+mvpalab_plotdecoding_ctp(graph,cfg,result.tvalues.tface.lname); %,stats.tvalues.tname.lface
+
+%graph.colors.saturn{1}
+% Title:
+load D:\AttExpLoc_EEG\Results/EEG/CTP/Loc_Tar/Att/Av_100_300/results.mat
+%graph.title = 'Train Att';
+graph.shadecolor = graph.colors.jupiter{1};
+graph.sigh = 10;
+graph.sigc =graph.shadecolor;
+
+figure;
+hold on
+mvpalab_plotdecoding_ctp(graph,cfg,result.tvalues.tface.lface);%,stats.tvalues.tname.lname
+hold on
+load D:\AttExpLoc_EEG\Results/EEG/CTP/Loc_Tar/Exp/Av_100_300/results.mat
+
+graph.shadecolor = graph.colors.saturn{2};
+graph.sigc =graph.shadecolor;
+graph.sigh = 11;
+mvpalab_plotdecoding_ctp(graph,cfg,result.tvalues.tface.lname); %,stats.tvalues.tname.lface
+% graph.shadecolor = graph.colors.mars{2};
+% graph.sigc =graph.shadecolor;
+% graph.sigh = 12;
+% graph.stats.below = false;
+% load D:\AttExpLoc_EEG\Results/EEG/CTP/Loc_Cue/Exp/Av_100_300/diff/face.mat
+% mvpalab_plotdecoding_ctp(graph,cfg,diff.res, diff.stats); 
+
+%graph.title = 'Train Exp';
+% graph.shadecolor = graph.colors.jupiter{1};
+% graph.sigh = .485;
+% graph.sigc = graph.colors.jupiter{1};
+% mvpalab_plotcr(graph,cfg,result.ba,stats.ba);
+
+% load D:\AttExpLoc_EEG\Results\EEG\Definitive\Voltage\MVCC/CV/Freqs/Cue/Exp_Cues/3T/Beta/results\time_resolved\auc\result.mat
+% load D:\AttExpLoc_EEG\Results\EEG\Definitive\Voltage\MVCC/CV/Freqs/Cue/Exp_Cues/3T/Beta/results\time_resolved\auc\stats.mat
+% graph.shadecolor = [84 190 164]/255;
+% graph.sigh = .46;
+% graph.sigc =[84 190 164]/255;
+% mvpalab_plotcr(graph,cfg,result,stats);
+
+% load D:\AttExpLoc_EEG\Results\EEG\Definitive\Voltage\MVCC\Cue\AttvExp\3T\results\time_resolved\auc\result.mat
+% load D:\AttExpLoc_EEG\Results\EEG\Definitive\Voltage\MVCC\Cue\AttvExp\3T\results\time_resolved\auc\stats.mat
+% graph.shadecolor = graph.colors.jupiter{1};
+% graph.sigh = .44;
+% graph.sigc = graph.colors.jupiter{1};
+% mvpalab_plotcr(graph,cfg,result,stats);
+% 
+% load D:\AttExpLoc_EEG\Results\EEG\Definitive\Voltage\MVPA\Perm\Target\Att\Inv\3T\results\time_resolved\auc\result.mat
+% load D:\AttExpLoc_EEG\Results\EEG\Definitive\Voltage\MVPA\Perm\Target\Att\Inv\3T\results\time_resolved\auc\stats.mat
+% graph.shadecolor = graph.colors.jupiter{2};
+% graph.linestyle = ':';
+% graph.sigh = .42;
+% graph.sigc = graph.colors.jupiter{2};
+% mvpalab_plotcr(graph,cfg,result,stats);
+% 
+% 
