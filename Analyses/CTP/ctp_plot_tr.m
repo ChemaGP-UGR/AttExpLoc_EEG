@@ -35,7 +35,7 @@ figure
 hold on 
 %% Difference
  % Att>Exp
-load D:\AttExpLoc_EEG\Results/EEG/Definitive/CTP/Loc_Cue/Att/Av_100_300/p001/diff.mat
+load results.mat
 graph.shadecolor = [1 1 1];
 graph.linewidth = 2;
 graph.shadealpha = 0.3;
@@ -54,7 +54,7 @@ mvpalab_plotdecoding_ctp(graph,cfg,diff.res.name, diff.stats.name);
 
 %% Expectation
 hold on
-load D:\AttExpLoc_EEG\Results/EEG/Definitive/CTP/Loc_Cue/Exp/Av_100_300/p001/results.mat
+load results.mat
 
 graph.shadecolor = [255 94 0]/255;
 graph.linestyle = '-';
@@ -65,13 +65,12 @@ graph.stats.below = false;
 mvpalab_plotdecoding_ctp(graph,cfg,result.tvalues.tname.lname, stats.tvalues.tname.lname); %,stats.tvalues.tname.lname
 
 %% Attention
-load D:\AttExpLoc_EEG\Results/EEG/Definitive/CTP/Loc_Cue/Att/Av_100_300/p001/results.mat
+load results.mat
 hold on 
 graph.shadecolor = [97 74 232]/255;
 graph.sigh = 11.5;
 graph.sigc = graph.shadecolor;
 mvpalab_plotdecoding_ctp(graph,cfg,result.tvalues.tname.lname, stats.tvalues.tname.lname);
 
-%% Difference
 
 
